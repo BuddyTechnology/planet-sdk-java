@@ -1,4 +1,3 @@
-Welcome to the planet-sdk-java wiki!
 
 对于Facechat的视讯服务，多数情况下可直接使用IOS和Android提供的SDK进行完整的业务开发，不需要服务端的接入，但是如果你需要定制某次用户的通话（eg.视频画质，连接策略，路由节点....），又或者你需要通过facechat视讯服务的长连接向指定用户推送系统消息；
 
