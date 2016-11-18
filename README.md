@@ -76,7 +76,22 @@ String roomId = PlanetSDK.createRoom(policy);//roomId需下发到客户端
 ```
 
 #6.向用户发送消息
-该消息非Apns推送，走的是facechat的长连接消息,请求地址：http://srv.api.facechat.im/api/chat/sendIM ,JavaSDK调用代码如下：
+该消息非Apns推送，走的是facechat的长连接消息,请求地址：http://srv.api.facechat.im/api/chat/sendIM 
+请求参数如下：
+<table>
+<tbody>
+<tr><td><em>参数</em></td><td><em>是否必须</em></td><td><em>参数类型</em></td><td><em>说明</em></td></tr>
+<tr><td>appId</td><td>是</td><td>string</td><td>应用appId</td></tr>
+<tr><td>sign_type</td><td>是</td><td>string</td><td>签名类型:MD5或RSA</td></tr>
+<tr><td>sign</td><td>是</td><td>string</td><td>签名串</td></tr>
+<tr><td>ctime</td><td>是</td><td>long</td><td>当前服务器时间毫秒数</td></tr>
+<tr><td>members</td><td>是</td><td>string[]</td><td>消息接受对象(member等于客户端回调的token,是用户在facechat服务中的唯一标示)</td></tr>
+<tr><td>message</td><td>是</td><td>string</td><td>消息内容</td></tr>
+</tbody>
+</table>
+
+JavaSDK调用代码如下：
+
 ```java
 PlanetSDK.sendIM("$!{token}","$!{message}");
 ```
