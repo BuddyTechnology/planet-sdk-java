@@ -3,7 +3,7 @@
 
 1.在调用服务端之前，需要配置开发者自己的 AppID等信息:
 
-        `PlanetConfig.appId = "{appId}";
+`PlanetConfig.appId = "{appId}";
 
 	PlanetConfig.appToken = "{appToken}";//重要信息，请认真保管
 
