@@ -1,8 +1,9 @@
 
 
 #前言
-	对于 Facechat的视讯服务，多数情况下可直接使用 iOS和 Android提供的 SDK进行完整的业务开发，不需要服务端的接入，但是如果你需要定制
-某次用户的通话（eg.视频画质，连接策略，路由节点....）, 又或者你需要通过 Facechat视讯服务的长连接向指定用户推送系统消息。
+	对于 Facechat的视讯服务，多数情况下可直接使用 iOS和 Android提供的 SDK进行完整的业务开发，不需要服务端的接入，但是如果
+你需要定制某次用户的通话（eg.视频画质，连接策略，路由节点....）, 又或者你需要通过 Facechat视讯服务的长连接向指定用户推送
+系统消息。
 
 #1.配置
 在调用服务端之前，需要配置开发者自己的 AppID等信息:
@@ -31,10 +32,16 @@ MD5签名：将Map中组装好的参数，以key进行从小到大字母排序�
 该字符串进行签名得到sign,分别将sign和sign_type(MD5)放入Map中，作为post提交参数的一部分；
 RSA签名：将Map中组装好的参数，以key进行从小到大字母排序，然后进行key1=value1&key2=value2&…形式的组装,得到一个长字符串，然后用MD5对该
 字符串进行签名得到sign1,用RSA加密私钥对sign1进行签名得到sign,分别将sign和sign_type(RSA)放入Map中，作为post提交参数的一部分；
+```java
+map.put("sign","$!{sign}");
+map.put("sign_type","$!{sign_type}");
+```
 
-#4.返回结果
-返回方式：Facechat-Server的返回结果是一串json,形式为{code:0,result:xxx,msg:xxxx}，如果code等于0,则result就是对应接口需要获得的最终数据，
+#4.请求和返回
+请求：请map中的参数以form表单的方式提交到服务器，请求地址为PlanetConfig.url+"/{serverpath}"
+返回：Facechat-Server的返回结果是一串json,形式为{code:0,result:xxx,msg:xxxx}，如果code等于0,则result就是对应接口需要获得的最终数据，
 如果code不为0，则可以从json串中获取对应的msg错误信息，以提供调试；
+
 
 #5.指定通话策略
 可以向服务器请求定制某个房间的高级通话策略
