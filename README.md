@@ -32,6 +32,7 @@ map.put("param2","$!{param2}");
 
 MD5签名：将Map中组装好的参数，以key进行从小到大字母排序，然后进行key1=value1&key2=value2&….形式的组装,得到一个长字符串，
 然后用MD5对该字符串进行签名得到sign,分别将sign和sign_type(MD5)放入Map中，作为post提交参数的一部分；
+
 RSA签名：将Map中组装好的参数，以key进行从小到大字母排序，然后进行key1=value1&key2=value2&…形式的组装,得到一个长字符串
 ，然后用MD5对该字符串进行签名得到sign1,用RSA加密私钥对sign1进行签名得到sign,分别将sign和sign_type(RSA)放入Map中，
 作为post提交参数的一部分；
@@ -48,7 +49,7 @@ map.put("sign_type","$!{sign_type}");
 
 
 #5.指定通话策略
-可以向服务器请求定制某个房间的高级通话策略,请求地址:http://srv.api.facechat.im/api/rtc/add_room
+可以向服务器请求定制某个房间的高级通话策略,请求地址:http://srv.api.facechat.im/api/rtc/add_room ，JavaSDK调用代码如下：
 ```java
 RoomPolicy policy = new RoomPolicy();
 policy.setDisableP2P(true);
@@ -58,13 +59,15 @@ policy.setQuality(Planets.RTC.Quality.HIGH); //通话画质
 String roomId = PlanetSDK.createRoom(policy);//roomId需下发到客户端
 ```
 #6.向用户发送消息
-该消息非Apns推送，走的是facechat的长连接消息,请求地址：http://srv.api.facechat.im/api/chat/sendIM
+该消息非Apns推送，走的是facechat的长连接消息,请求地址：http://srv.api.facechat.im/api/chat/sendIM ,JavaSDK调用代码如下：
 ```java
 PlanetSDK.sendIM("$!{token}","$!{message}");
 ```
 
 #7.查询用户通话
-请求地址：http://srv.api.facechat.im/api/rtc/get_chats
+sessions是会话标示的数组(从客户端SDK的onRoomSession中获得，用于唯一标示用户的一次通话)，该接口支持批量查询，最大支持300条，同时该通话记录
+只保留7天，7天以前的数据暂不支持查询；
+请求地址：http://srv.api.facechat.im/api/rtc/get_chats ,JavaSDK调用代码如下：
 ```java
 PlanetSDK.getChats(sessions);
 ```
