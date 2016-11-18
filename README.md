@@ -14,7 +14,69 @@ PlanetConfig.rsaKey = "{rsaKey}";//重要信息，请认真保管
 PlanetConfig.signType = "{signType}";//签名类型，目前支持MD5和RSA(1024)
 PlanetConfig.url = "http://srv.api.facechat.im/";业务请求根路径地址
 ```
-#2.业务参数签名
+#2.业务参数封装
+开发者在调用Facechat-server的接口时，需对传递的参数进行组装签名，参数组装规则如下：将要传递的方法参数以key,value的形式添加到Map中
+(如果value是复杂对象，请将该对象json序列化为字符串，当然如果复杂对象为空，则不需要将该key,value添加到Map中)，同时添加当前服务器
+时间ctime:{当前时间毫秒数}，签名方式sign_type:{MD5 or RSA}，appId:{appId}到Map中:
+```java
+Map map = ....
+map.put("appId","$!{appId}")
+map.put("ctime","$!{ctime}")
+map.put("param1","$!{param1}");
+map.put("param2","$!{param2}");
+....
+```
+#3.参数签名
+
+	MD5签名：将字典容器中组装好的参数(sign_type除外)，以key进行从小到大字母排序，然后进行key1=value1&key2=value2&….形式的组装,得到一个长字符串，然后用MD5对该字符串进行签名得到_sign,将_sign以sign:{_sign}放入字典结构中，作为post提交参数的一部分；
+
+	RSA签名：将字典容器中组装好的参数(sign_type除外)，以key进行从小到大字母排序，然后进行key1=value1&key2=value2&….形式的组装,得到一个长字符串，然后用MD5对该字符串进行签名得到_sign1,用RSA加密私钥对_sign1进行签名得到_sign2,将_sign2以sign:{_sign2}放入字典结构中，作为post提交参数的一部分；请看一段Java参数拼接的代码和签名的代码：
+
+
+
+	Figure1.3.参数拼接
+
+
+	Figure1.4.对拼接字符串进行签名
+
+
+
+
+
+
+
+3).调用：将组装好的参数以Post方式提交到服务器进行访问；
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Figure1.5.Http Post访问
+
+
+
+4).返回：Facechat-Server的返回结果是一串json,形式为{code:0,result:xxx,msg:xxxx}，如果code等于0,则result就是对应接口需要获得的最终数据，如果code不为0，则可以从json串中获取对应的msg错误信息，以提供调试；
+
 
 
 #3.指定通话策略
