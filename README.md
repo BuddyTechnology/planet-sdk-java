@@ -12,9 +12,12 @@ PlanetConfig.appId = "{appId}";
 PlanetConfig.appToken = "{appToken}";//重要信息，请认真保管
 PlanetConfig.rsaKey = "{rsaKey}";//重要信息，请认真保管
 PlanetConfig.signType = "{signType}";//签名类型，目前支持MD5和RSA(1024)
+PlanetConfig.url = "http://srv.api.facechat.im/";业务请求根路径地址
 ```
+#2.业务参数签名
 
-#2.指定通话策略
+
+#3.指定通话策略
 可以向服务器请求定制某个房间的高级通话策略
 ```java
 RoomPolicy policy = new RoomPolicy();
@@ -24,7 +27,7 @@ policy.setDisableP2P(true);//是否禁用P2P通话
 policy.setQuality(Planets.RTC.Quality.HIGH); //通话画质
 String roomId = PlanetSDK.createRoom(policy);//roomId需下发到客户端
 ```
-#3.向用户发送消息
+#4.向用户发送消息
 该消息非Apns推送，走的是facechat的长连接消息:
 ```java
 PlanetSDK.sendIM("$!{token}","$!{message}");
