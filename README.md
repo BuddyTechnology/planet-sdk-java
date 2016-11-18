@@ -99,7 +99,21 @@ PlanetSDK.sendIM("$!{token}","$!{message}");
 #7.查询用户通话
 sessions是会话标示的数组(从客户端SDK的onRoomSession中获得，用于唯一标示用户的一次通话)，该接口支持批量查询，最大支持300条，同时该通话记录
 只保留7天，7天以前的数据暂不支持查询；
-请求地址：http://srv.api.facechat.im/api/rtc/get_chats ,JavaSDK调用代码如下：
+请求地址：http://srv.api.facechat.im/api/rtc/get_chats 
+请求参数如下：
+<table>
+<tbody>
+<tr><td><em>参数</em></td><td><em>是否必须</em></td><td><em>参数类型</em></td><td><em>说明</em></td></tr>
+<tr><td>appId</td><td>是</td><td>string</td><td>应用appId</td></tr>
+<tr><td>sign_type</td><td>是</td><td>string</td><td>签名类型:MD5或RSA</td></tr>
+<tr><td>sign</td><td>是</td><td>string</td><td>签名串</td></tr>
+<tr><td>ctime</td><td>是</td><td>long</td><td>当前服务器时间毫秒数</td></tr>
+<tr><td>sessions</td><td>是</td><td>string[]</td><td>用户一次通话的唯一标示，取自客户蛋onRoomSession中的回调值</td></tr>
+</tbody>
+</table>
+
+JavaSDK调用代码如下：
+
 ```java
 PlanetSDK.getChats(sessions);
 ```
