@@ -44,12 +44,22 @@ map.put("sign_type","$!{sign_type}");
 
 #4.请求和返回
 请求：请map中的参数以form表单的方式提交到服务器，请求地址为PlanetConfig.url+"/{serverletPath}"
-返回：Facechat-Server的返回结果是一串json,形式为{code:0,result:xxx,msg:xxxx}，如果code等于0,则result就是对应接口需要获得的最终数据，
-如果code不为0，则可以从json串中获取对应的msg错误信息，以提供调试；
 
+返回：Facechat-Server的返回结果是一串json,形式为{code:0,result:xxx,msg:xxxx}，如果code等于0,则result就是对应接口需要获得的
+最终数据，如果code不为0，则可以从json串中获取对应的msg错误信息，以提供调试；
 
 #5.指定通话策略
 可以向服务器请求定制某个房间的高级通话策略,请求地址:http://srv.api.facechat.im/api/rtc/add_room ，JavaSDK调用代码如下：
+请求参数说明：
+|| *参数* || *是否必须* || *参数类型* || *说明* ||
+|| appId || 是 || string || 应用appId ||
+|| quality || 是 || int || 画质,1:高清,2:标清,3:普通,默认为0 ||
+|| disableP2P || 是 || boolean || 是否禁用P2P，默认false ||
+|| members || 否 || string[] || 限定用户可以进入该房间 ||
+|| sign_type || 是 || string || 签名类型:MD5或RSA ||
+|| sign || 是 || string || 签名串 ||
+|| ctime || 是 || long || 当前服务器时间毫秒数 ||
+
 ```java
 RoomPolicy policy = new RoomPolicy();
 policy.setDisableP2P(true);
