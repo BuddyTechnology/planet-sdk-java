@@ -27,6 +27,7 @@ map.put("param2","$!{param2}");
 ....
 ```
 #3.参数签名
+
 **⚠sign_type不参与签名**
 
 MD5签名：将Map中组装好的参数，以key进行从小到大字母排序，然后进行key1=value1&key2=value2&….形式的组装,得到一个长字符串，然后用MD5对
@@ -40,13 +41,13 @@ map.put("sign_type","$!{sign_type}");
 ```
 
 #4.请求和返回
-请求：请map中的参数以form表单的方式提交到服务器，请求地址为PlanetConfig.url+"/{serverpath}"
+请求：请map中的参数以form表单的方式提交到服务器，请求地址为PlanetConfig.url+"/{serverletPath}"
 返回：Facechat-Server的返回结果是一串json,形式为{code:0,result:xxx,msg:xxxx}，如果code等于0,则result就是对应接口需要获得的最终数据，
 如果code不为0，则可以从json串中获取对应的msg错误信息，以提供调试；
 
 
 #5.指定通话策略
-可以向服务器请求定制某个房间的高级通话策略
+可以向服务器请求定制某个房间的高级通话策略,请求地址:http://srv.api.facechat.im/api/rtc/add_room
 ```java
 RoomPolicy policy = new RoomPolicy();
 policy.setDisableP2P(true);
@@ -56,8 +57,13 @@ policy.setQuality(Planets.RTC.Quality.HIGH); //通话画质
 String roomId = PlanetSDK.createRoom(policy);//roomId需下发到客户端
 ```
 #6.向用户发送消息
-该消息非Apns推送，走的是facechat的长连接消息:
+该消息非Apns推送，走的是facechat的长连接消息,请求地址：http://srv.api.facechat.im/api/chat/sendIM
 ```java
 PlanetSDK.sendIM("$!{token}","$!{message}");
 ```
 
+#7.查询用户通话
+请求地址：http://srv.api.facechat.im/api/rtc/get_chats
+```java
+PlanetSDK.getChats(sessions);
+```
