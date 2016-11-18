@@ -3,13 +3,13 @@
 
 1.在调用服务端之前，需要配置开发者自己的 AppID等信息:
 
-        `PlanetConfig.appId = "{appId}";`
+        `PlanetConfig.appId = "{appId}";
 
-	`PlanetConfig.appToken = "{appToken}";//重要信息，请认真保管`
+	PlanetConfig.appToken = "{appToken}";//重要信息，请认真保管
 
-	`PlanetConfig.rsaKey = "{rsaKey}";//重要信息，请认真保管`
+	PlanetConfig.rsaKey = "{rsaKey}";//重要信息，请认真保管
 
-	`PlanetConfig.signType = "{signType}";//前面类型，目前支持MD5和RSA(1024)`
+	PlanetConfig.signType = "{signType}";//前面类型，目前支持MD5和RSA(1024)`
 
 2.配置完成后，即可开始接口的调用指定某个房间的通话策略:
 
