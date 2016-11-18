@@ -3,7 +3,7 @@
 
 1.在调用服务端之前，需要配置开发者自己的 AppID等信息:
 
-`PlanetConfig.appId = "{appId}";
+	`PlanetConfig.appId = "{appId}";
 
 	PlanetConfig.appToken = "{appToken}";//重要信息，请认真保管
 
@@ -13,19 +13,19 @@
 
 2.配置完成后，即可开始接口的调用指定某个房间的通话策略:
 
-        `RoomPolicy policy = new RoomPolicy();`
+	`RoomPolicy policy = new RoomPolicy();`
 
-        `policy.setDisableP2P(true);`
+	`policy.setDisableP2P(true);`
 
-        `policy.setMembers(new String[]{"token1","token2"});//限定用户进行通话`
+	`policy.setMembers(new String[]{"token1","token2"});//限定用户进行通话`
 
-        `policy.setDisableP2P(true);//是否禁用P2P通话`
+	`policy.setDisableP2P(true);//是否禁用P2P通话`
 
-        `policy.setQuality(Planets.RTC.Quality.HIGH); //通话画质`
+	`policy.setQuality(Planets.RTC.Quality.HIGH); //通话画质`
 
-        `String roomId = PlanetSDK.createRoom(policy);//roomId需下发到客户端`
+	`String roomId = PlanetSDK.createRoom(policy);//roomId需下发到客户端`
 
 3.向某些用户发送系统消息（非Apns推送，走的是facechat的长连接消息）:
 
-        `PlanetSDK.sendIM("$!{token}","$!{message}");`
+	`PlanetSDK.sendIM("$!{token}","$!{message}");`
 
