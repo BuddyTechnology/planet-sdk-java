@@ -48,7 +48,7 @@ map.put("sign_type","$!{sign_type}");
 最终数据，如果code不为0，则可以从json串中获取对应的msg错误信息，以提供调试；
 
 #5.指定通话策略
-可以向服务器请求定制某个房间的高级通话策略,请求地址:http://srv.api.facechat.im/api/rtc/add_room ，JavaSDK调用代码如下：
+可以向服务器请求定制某个房间的高级通话策略,请求地址:http://srv.api.facechat.im/api/rtc/add_room ,
 请求参数如下：
 <table>
 <tbody>
@@ -63,6 +63,9 @@ map.put("sign_type","$!{sign_type}");
 </tbody>
 </table>
 
+
+JavaSDK调用代码如下：
+
 ```java
 RoomPolicy policy = new RoomPolicy();
 policy.setDisableP2P(true);
@@ -71,9 +74,6 @@ policy.setDisableP2P(true);//是否禁用P2P通话
 policy.setQuality(Planets.RTC.Quality.HIGH); //通话画质
 String roomId = PlanetSDK.createRoom(policy);//roomId需下发到客户端
 ```
-返回格式如下：
-
-{code:xxx,msg:yyy,result:zzzz}
 
 #6.向用户发送消息
 该消息非Apns推送，走的是facechat的长连接消息,请求地址：http://srv.api.facechat.im/api/chat/sendIM ,JavaSDK调用代码如下：
