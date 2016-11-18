@@ -1,12 +1,12 @@
 
 
 #前言
-	对于 Facechat的视讯服务，多数情况下可直接使用 iOS和 Android提供的 SDK进行完整的业务开发，不需要服务端的接入，但是如果你需要定制某次用户的通话（eg.视频画质，连接策略，路由节点....）, 又或者你需要通过 Facechat视讯服务的长连接向指定用户推送系统消息。
-
+	对于 Facechat的视讯服务，多数情况下可直接使用 iOS和 Android提供的 SDK进行完整的业务开发，不需要服务端的接入，
+	但是如果你需要定制某次用户的通话（eg.视频画质，连接策略，路由节点....）, 又或者你需要通过 Facechat视讯服务的长连接向指定用户推送系统消息。
 
 #1.配置,在调用服务端之前，需要配置开发者自己的 AppID等信息:
 ```java
-	`PlanetConfig.appId = "{appId}";
+	PlanetConfig.appId = "{appId}";
 
 	PlanetConfig.appToken = "{appToken}";//重要信息，请认真保管
 
