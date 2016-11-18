@@ -5,10 +5,12 @@ import im.facechat.planet.cons.PlanetConfig;
 import im.facechat.planet.core.HttpCore;
 import im.facechat.planet.core.SignUtil;
 import im.facechat.planet.exp.PlanetException;
+import im.facechat.planet.module.RTCChat;
 import im.facechat.planet.module.RoomPolicy;
 import im.facechat.planet.tool.RequestBuilder;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
@@ -16,6 +18,13 @@ import com.alibaba.fastjson.JSONObject;
 
 public final class PlanetSDK {
 
+	public static List<RTCChat> getChats(String[] sessions) throws PlanetException{
+		Map<String,String> params = new HashMap<String,String>();
+		params.put("sessions",JSON.toJSONString(sessions));
+		String result = signRequest(params,"/api/rtc/get_chats");
+		return JSON.parseArray(result,RTCChat.class);
+	}
+	
 	public static String createRoom() throws PlanetException{
 		return createRoom(new RoomPolicy());
 	}
@@ -40,7 +49,7 @@ public final class PlanetSDK {
 		}catch(Exception e){
 			throw new PlanetException(IReturnCode.PLANET_INVALID_SIGN,"error signature!",e);
 		}
-		String base = formatBaseURL(PlanetConfig.planetURL);
+		String base = formatBaseURL(PlanetConfig.url);
 		
 		String json = HttpCore.post(base + path,params,"planet.sdk.client");
 		if(json == null || json.equals("")){
