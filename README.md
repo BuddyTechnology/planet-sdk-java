@@ -30,10 +30,11 @@ map.put("param2","$!{param2}");
 
 **⚠sign_type不参与签名**
 
-MD5签名：将Map中组装好的参数，以key进行从小到大字母排序，然后进行key1=value1&key2=value2&….形式的组装,得到一个长字符串，然后用MD5对
-该字符串进行签名得到sign,分别将sign和sign_type(MD5)放入Map中，作为post提交参数的一部分；
-RSA签名：将Map中组装好的参数，以key进行从小到大字母排序，然后进行key1=value1&key2=value2&…形式的组装,得到一个长字符串，然后用MD5对该
-字符串进行签名得到sign1,用RSA加密私钥对sign1进行签名得到sign,分别将sign和sign_type(RSA)放入Map中，作为post提交参数的一部分；
+MD5签名：将Map中组装好的参数，以key进行从小到大字母排序，然后进行key1=value1&key2=value2&….形式的组装,得到一个长字符串，
+然后用MD5对该字符串进行签名得到sign,分别将sign和sign_type(MD5)放入Map中，作为post提交参数的一部分；
+RSA签名：将Map中组装好的参数，以key进行从小到大字母排序，然后进行key1=value1&key2=value2&…形式的组装,得到一个长字符串
+，然后用MD5对该字符串进行签名得到sign1,用RSA加密私钥对sign1进行签名得到sign,分别将sign和sign_type(RSA)放入Map中，
+作为post提交参数的一部分；
 
 ```java
 map.put("sign","$!{sign}");
