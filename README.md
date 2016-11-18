@@ -1,13 +1,4 @@
 
-<table>
-<tbody>
-<tr><td><em>Year</em></td><td><em>Temperature (low)</em></td><td><em>Temperature (high)</em></td></tr>
-<tr><td>1900</td><td>-10</td><td>25</td></tr>
-<tr><td>1910</td><td>-15</td><td>30</td></tr>
-<tr><td>1920</td><td>-10</td><td>32</td></tr>
-</tbody>
-</table>
-
 #前言
 对于 Facechat的视讯服务，多数情况下可直接使用 iOS和 Android提供的 SDK进行完整的业务开发，不需要服务端的接入，
 但是如果你需要定制某次用户的通话（eg.视频画质，连接策略，路由节点....）, 又或者你需要通过 Facechat视讯服务的
@@ -58,15 +49,19 @@ map.put("sign_type","$!{sign_type}");
 
 #5.指定通话策略
 可以向服务器请求定制某个房间的高级通话策略,请求地址:http://srv.api.facechat.im/api/rtc/add_room ，JavaSDK调用代码如下：
-请求参数说明：
-|| *参数* || *是否必须* || *参数类型* || *说明* ||
-|| appId || 是 || string || 应用appId ||
-|| quality || 是 || int || 画质,1:高清,2:标清,3:普通,默认为0 ||
-|| disableP2P || 是 || boolean || 是否禁用P2P，默认false ||
-|| members || 否 || string[] || 限定用户可以进入该房间 ||
-|| sign_type || 是 || string || 签名类型:MD5或RSA ||
-|| sign || 是 || string || 签名串 ||
-|| ctime || 是 || long || 当前服务器时间毫秒数 ||
+请求参数如下：
+<table>
+<tbody>
+<tr><td><em>参数</em></td><td><em>是否必须</em></td><td><em>参数类型</em></td><td><em>说明</em></td></tr>
+<tr><td>appId</td><td>是</td><td>string</td><td>应用appId</td></tr>
+<tr><td>quality</td><td>是</td><td>int</td><td>画质,1:高清,2:标清,3:普通,默认为0</td></tr>
+<tr><td>disableP2P</td><td>是</td><td>boolean</td><td>是否禁用P2P，默认false</td></tr>
+<tr><td>members</td><td>否</td><td>string[]</td><td>限定用户可以进入该房间</td></tr>
+<tr><td>sign_type</td><td>是</td><td>string</td><td>签名类型:MD5或RSA</td></tr>
+<tr><td>sign</td><td>是</td><td>string</td><td>签名串</td></tr>
+<tr><td>ctime</td><td>是</td><td>long</td><td>当前服务器时间毫秒数</td></tr>
+</tbody>
+</table>
 
 ```java
 RoomPolicy policy = new RoomPolicy();
@@ -76,6 +71,10 @@ policy.setDisableP2P(true);//是否禁用P2P通话
 policy.setQuality(Planets.RTC.Quality.HIGH); //通话画质
 String roomId = PlanetSDK.createRoom(policy);//roomId需下发到客户端
 ```
+返回格式如下：
+
+{code:xxx,msg:yyy,result:zzzz}
+
 #6.向用户发送消息
 该消息非Apns推送，走的是facechat的长连接消息,请求地址：http://srv.api.facechat.im/api/chat/sendIM ,JavaSDK调用代码如下：
 ```java
